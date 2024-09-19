@@ -29,6 +29,26 @@ class CartService
 
         return $cart;
     }
+    public function removeItem($cartId, $productId)
+    {
+        $cart = Cart::find($cartId);
+
+        if (!$cart) {
+            return false;
+        }
+
+        $cartItem = CartItem::where('cart_id', $cartId)
+                            ->where('product_id', $productId)
+                            ->first();
+
+        if (!$cartItem) {
+            return false;
+        }
+
+        $cartItem->delete();
+
+        return true;
+    }
 
     
 }

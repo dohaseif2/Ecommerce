@@ -26,5 +26,15 @@ class CartController extends Controller
             'message' => 'Product added to cart',
         ], 200);
     }
+    public function removeItem( $cartId, $productId)
+    {
+        $response = $this->cartService->removeItem($cartId, $productId);
+
+        if (!$response) {
+            return response()->json(['message' => 'Item not found'], 200);
+        }
+
+        return response()->json([ 'message' => 'Item removed from cart'], 404);
+    }
    
 }
