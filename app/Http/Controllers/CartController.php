@@ -36,5 +36,29 @@ class CartController extends Controller
 
         return response()->json([ 'message' => 'Item removed from cart'], 404);
     }
-   
+    public function increment(Request $request, $cartId, $productId)
+    {
+        $quantity = $request->input('quantity', 1);
+
+        $result = $this->cartService->incrementItemQuantity($cartId, $productId, $quantity);
+
+        if (!$result) {
+            return response()->json(['message' => 'Item not found in cart'], 404);
+        }
+
+        return response()->json(['message' => 'Item quantity incremented'], 200);
+    }
+
+    public function decrement(Request $request, $cartId, $productId)
+    {
+        $quantity = $request->input('quantity', 1);
+
+        $result = $this->cartService->decrementItemQuantity($cartId, $productId, $quantity);
+
+        if (!$result) {
+            return response()->json(['message' => 'Item not found in cart'], 404);
+        }
+
+        return response()->json(['message' => 'Item quantity decremented'], 200);
+    }
 }

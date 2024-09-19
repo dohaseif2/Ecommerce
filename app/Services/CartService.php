@@ -50,5 +50,39 @@ class CartService
         return true;
     }
 
-    
+    public function incrementItemQuantity($cartId, $productId, $quantity = 1)
+    {
+        $cartItem = CartItem::where('cart_id', $cartId)
+                            ->where('product_id', $productId)
+                            ->first();
+
+        if (!$cartItem) {
+            return false;
+        }
+
+        $cartItem->quantity += $quantity;
+        $cartItem->save(); 
+
+        return true;
+    }
+
+    public function decrementItemQuantity($cartId, $productId, $quantity = 1)
+    {
+        $cartItem = CartItem::where('cart_id', $cartId)
+                            ->where('product_id', $productId)
+                            ->first();
+
+        if (!$cartItem) {
+            return false;
+        }
+
+        if ($cartItem->quantity <= $quantity) {
+            $cartItem->delete();
+        } else {
+            $cartItem->quantity -= $quantity;
+            $cartItem->save(); 
+        }
+
+        return true;
+    }
 }

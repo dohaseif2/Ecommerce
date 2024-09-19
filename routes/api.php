@@ -25,3 +25,5 @@ Route::get('/products/{id}', [ProductController::class, 'show']);
 
 Route::post('/cart', [CartController::class, 'addToCart']);
 Route::delete('/cart/{cartId}/item/{productId}', [CartController::class, 'removeItem']);
+Route::post('/cart/{cartId}/item/{productId}/increase', [CartController::class, 'increment']);
+Route::post('/cart/{cartId}/item/{productId}/decrease', [CartController::class, 'decrement']);
