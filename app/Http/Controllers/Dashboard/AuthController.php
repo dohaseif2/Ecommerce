@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -35,14 +36,15 @@ class AuthController extends Controller
     {
         return view('auth.login');
     }
-    public function logout()
+  
+    public function logout(Request $request)
     {
-        $result = $this->authService->logout();
-
-        if ($result) {
+        $user = Auth::user();
+        if ($user) {
+            $user->tokens()->delete();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
             return redirect()->route('login.index');
         }
-
-        // return redirect()->view('');
     }
 }
