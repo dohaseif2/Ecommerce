@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -21,6 +22,21 @@ class AuthService
             'success' => true,
             'message' => 'User registered successfully',
             'user' => $user
+        ];
+    }
+    public function login(array $credentials)
+    {
+        if (!Auth::attempt($credentials)) {
+            return ['success' => false, 'message' => 'Invalid login credentials.'];
+        }
+
+        $user = User::where('email', $credentials['email'])->firstOrFail();
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return [
+            'success' => true,
+            'token' => $token,
+            'message' => 'Login successful!',
         ];
     }
 }
