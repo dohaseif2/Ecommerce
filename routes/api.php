@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,3 +28,4 @@ Route::post('/cart', [CartController::class, 'addToCart']);
 Route::delete('/cart/{cartId}/item/{productId}', [CartController::class, 'removeItem']);
 Route::post('/cart/{cartId}/item/{productId}/increase', [CartController::class, 'increment']);
 Route::post('/cart/{cartId}/item/{productId}/decrease', [CartController::class, 'decrement']);
+Route::post('/orders', [OrderController::class, 'create']);

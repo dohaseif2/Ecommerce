@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use App\Models\Cart;
@@ -12,18 +13,18 @@ class CartService
         $product = Product::find($productId);
         $cart = Cart::firstOrCreate(['user_id' => $userId]);
         $cartItem = CartItem::where('cart_id', $cart->id)
-                            ->where('product_id', $productId)
-                            ->first();
+            ->where('product_id', $productId)
+            ->first();
 
         if ($cartItem) {
             $cartItem->quantity += $quantity;
-            $cartItem->save(); 
+            $cartItem->save();
         } else {
             CartItem::create([
                 'cart_id' => $cart->id,
                 'product_id' => $productId,
                 'quantity' => $quantity,
-                'price' => $product->price
+                'price' => $product->price * $quantity
             ]);
         }
 
@@ -38,8 +39,8 @@ class CartService
         }
 
         $cartItem = CartItem::where('cart_id', $cartId)
-                            ->where('product_id', $productId)
-                            ->first();
+            ->where('product_id', $productId)
+            ->first();
 
         if (!$cartItem) {
             return false;
@@ -53,15 +54,16 @@ class CartService
     public function incrementItemQuantity($cartId, $productId, $quantity = 1)
     {
         $cartItem = CartItem::where('cart_id', $cartId)
-                            ->where('product_id', $productId)
-                            ->first();
+            ->where('product_id', $productId)
+            ->first();
 
         if (!$cartItem) {
             return false;
         }
-
+        $product = Product::find($productId);
         $cartItem->quantity += $quantity;
-        $cartItem->save(); 
+        $cartItem->price =  $cartItem->quantity * $product->price;
+        $cartItem->save();
 
         return true;
     }
@@ -69,8 +71,8 @@ class CartService
     public function decrementItemQuantity($cartId, $productId, $quantity = 1)
     {
         $cartItem = CartItem::where('cart_id', $cartId)
-                            ->where('product_id', $productId)
-                            ->first();
+            ->where('product_id', $productId)
+            ->first();
 
         if (!$cartItem) {
             return false;
@@ -79,8 +81,10 @@ class CartService
         if ($cartItem->quantity <= $quantity) {
             $cartItem->delete();
         } else {
+            $product = Product::find($productId);
             $cartItem->quantity -= $quantity;
-            $cartItem->save(); 
+            $cartItem->price =  $cartItem->quantity * $product->price;
+            $cartItem->save();
         }
 
         return true;
