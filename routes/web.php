@@ -18,7 +18,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-})->name('index');
-Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+})->name('index')->middleware('auth:sanctum','role:user');
+Route::get('/orders', [OrderController::class, 'index'])->middleware('auth:sanctum','role:user')->name('orders.index');
 Route::get('/login',[AuthController::class,'index'])->name('login.index');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post( '/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum','role:user')->name('logout');
+

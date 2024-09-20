@@ -29,10 +29,20 @@ class AuthController extends Controller
             ])->withInput();
         }
 
-        return view('index');
+        return redirect()->route('index');
     }
     public function index()
     {
         return view('auth.login');
+    }
+    public function logout()
+    {
+        $result = $this->authService->logout();
+
+        if ($result) {
+            return redirect()->route('login.index');
+        }
+
+        // return redirect()->view('');
     }
 }
