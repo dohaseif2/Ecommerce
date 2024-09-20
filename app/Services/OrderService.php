@@ -7,6 +7,10 @@ use App\Models\OrderItem;
 
 class OrderService
 {
+    public function index()
+    {
+        return Order::with('user')->get();
+    }
     public function createOrder($userId, $cartItems)
     {
         $totalPrice = 0;

@@ -35,3 +35,4 @@ Route::delete('/cart/{cartId}/item/{productId}', [CartController::class, 'remove
 Route::post('/cart/{cartId}/item/{productId}/increase', [CartController::class, 'increment']);
 Route::post('/cart/{cartId}/item/{productId}/decrease', [CartController::class, 'decrement']);
 Route::post('/orders', [OrderController::class, 'create']);
+

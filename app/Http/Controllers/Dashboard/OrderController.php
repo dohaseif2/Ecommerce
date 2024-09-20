@@ -14,5 +14,9 @@ class OrderController extends Controller
         $this->orderService = $orderService;
     }
 
-  
+    public function index()
+    {
+        $orders = $this->orderService->index();
+        return view('orders.index', compact('orders'));
+    }
 }
