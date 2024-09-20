@@ -49,4 +49,14 @@ class AuthController extends Controller
             'access_token' => $result['token'],
         ]);
     }
+    public function logout()
+    {
+        $result = $this->authService->logout();
+
+        if ($result) {
+            return response()->json( ['success' => true, 'message' => 'Logout successful!'], 401);
+        }
+
+        return response()->json(['success' => false, 'message' => 'User not logged in.']);
+    }
 }

@@ -39,4 +39,16 @@ class AuthService
             'message' => 'Login successful!',
         ];
     }
+    public function logout()
+    {
+        $user = Auth::user();
+
+        if ($user) {
+            $user->tokens()->delete();
+            return true;
+        }
+
+        return false;
+    }
+    
 }
