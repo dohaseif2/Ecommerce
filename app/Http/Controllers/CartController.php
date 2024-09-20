@@ -20,7 +20,7 @@ class CartController extends Controller
             'quantity' => 'required|integer|min:1'
         ]);
 
-        $cart = $this->cartService->addToCart(1, $request->product_id, $request->quantity);
+        $cart = $this->cartService->addToCart(auth()->id(), $request->product_id, $request->quantity);
 
         return response()->json([
             'message' => 'Product added to cart',

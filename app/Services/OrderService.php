@@ -35,4 +35,8 @@ class OrderService
 
         return $order;
     }
+    public function getOrderById($id)
+    {
+        return Order::with('user', 'orderItems')->findOrFail($id);
+    }
 }

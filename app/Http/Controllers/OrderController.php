@@ -17,7 +17,7 @@ class OrderController extends Controller
 
     public function create(Request $request)
     {
-        $userId = 1; 
+        $userId = auth()->id(); 
         $cartItems = CartItem::where('cart_id', $request->input('cart_id'))->get();
 
         if ($cartItems->isEmpty()) {

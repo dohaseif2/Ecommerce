@@ -24,7 +24,7 @@ class CartService
                 'cart_id' => $cart->id,
                 'product_id' => $productId,
                 'quantity' => $quantity,
-                'price' => $product->price * $quantity
+                'price' => $product->price 
             ]);
         }
 

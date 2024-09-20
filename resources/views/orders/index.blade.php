@@ -24,6 +24,8 @@
                     <td>${{ number_format($order->total_price, 2) }}</td>
                     <td>{{ $order->created_at->format('Y-m-d H:i:s') }}</td>
                     <td>
+                        <a href="{{ route('orders.show', $order->id) }}" class="btn btn-info btn-sm">Details</a>
+
                     </td>
                 </tr>
             @endforeach
