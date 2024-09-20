@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Resources\ProductResource;
 use App\Services\ProductService;
 
 class ProductController extends Controller
@@ -15,12 +17,12 @@ class ProductController extends Controller
     public function index()
     {
         $products = $this->productService->getAllProducts();
-        return response()->json(['products' => $products]);
+        return ProductResource::collection($products);
     }
 
     public function show($id)
     {
         $product = $this->productService->getProductById($id);
-        return response()->json(['product' => $product]);
+        return new ProductResource($product);
     }
 }

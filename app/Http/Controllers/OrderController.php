@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\OrderResource;
 use App\Models\CartItem;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
@@ -28,6 +29,6 @@ class OrderController extends Controller
 
         CartItem::where('cart_id', $request->input('cart_id'))->delete();
 
-        return response()->json(['message'=>'Order created successfully','order' => $order], 201);
+        return response()->json(['message'=>'Order created successfully',  new OrderResource($order) ], 201);
     }
 }
