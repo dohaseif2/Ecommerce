@@ -1,4 +1,3 @@
-<!-- resources/views/layouts/navbar.blade.php -->
 <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
     <div class="layout-menu-toggle navbar-nav align-items-xl-center me-4 me-xl-0 d-xl-none">
         <a class="nav-item nav-link px-0 me-xl-6" href="javascript:void(0)">
@@ -17,6 +16,43 @@
         <!-- /Search -->
 
         <ul class="navbar-nav flex-row align-items-center ms-auto">
+            <!-- Notification Icon -->
+            <li class="nav-item dropdown">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                        <i class="bx bx-bell bx-md"></i>
+                        <span class="badge bg-danger rounded-pill">{{ $notifications->count() }}</span> <!-- Shows notification count -->
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <!-- Dynamic Notifications -->
+                        @foreach ($notifications as $notification)
+                        <li>
+                            <a class="dropdown-item " href="#">
+                                <i class="bx me-2"></i>
+                                <span class="align-middle">
+                                    <strong>{{ $notification->user->name }}:</strong> {{ $notification->message }}
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="dropdown-divider my-1"></div>
+                        </li>
+                        @endforeach
+                
+                        <!-- If no notifications -->
+                        @if ($notifications->isEmpty())
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <span class="align-middle">No new notifications</span>
+                            </a>
+                        </li>
+                        @endif
+                    </ul>
+                </li>
+                
+                </ul>
+            </li>
+
             <!-- User -->
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -63,3 +99,22 @@
         </ul>
     </div>
 </nav>
+<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+  <script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('b351997304f15043fc32', {
+      cluster: 'eu',
+      forceTLS: true
+    });
+
+    var channel = pusher.subscribe('admin.notifications');
+    
+    channel.bind('App\\Events\\OrderCreated', function(data) {
+        console.log("test " + data);
+        
+      alert(JSON.stringify(data));
+    });
+  </script>

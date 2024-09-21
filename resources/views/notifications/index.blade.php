@@ -34,6 +34,5 @@
         console.log("test " + data);
         
       alert(JSON.stringify(data));
-      
     });
   </script>

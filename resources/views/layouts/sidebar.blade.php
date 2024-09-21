@@ -15,11 +15,11 @@
                 <div class="text-truncate" data-i18n="Basic">orders</div>
             </a>
         </li>
-        <li class="menu-item">
+        {{-- <li class="menu-item">
             <a href="{{route('notifications.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div class="text-truncate" data-i18n="Basic">notifications</div>
             </a>
-        </li>
+        </li> --}}
     </ul>
 </aside>
