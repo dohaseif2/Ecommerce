@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Events\OrderCreated;
+use App\Models\Notification;
 use App\Models\Order;
 use App\Models\OrderItem;
 
@@ -32,7 +34,13 @@ class OrderService
                 'price' => $item->price,
             ]);
         }
-
+        Notification::create([
+            'user_id' => auth()->id(),
+            'message' => "New order created: Order ID " . $order->id,
+            'read' => false,
+        ]);
+        broadcast(new OrderCreated($order))->toOthers();
+        
         return $order;
     }
     public function getOrderById($id)

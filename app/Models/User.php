@@ -25,6 +25,10 @@ class User extends Authenticatable
         'phone',
         'role'
     ];
+    public function isAdmin()
+    {
+        return $this->role === 'admin'; 
+    }
     public function carts()
     {
         return $this->hasMany(Cart::class);

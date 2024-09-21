@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard\AuthController;
 use App\Http\Controllers\Dashboard\OrderController;
+use App\Http\Controllers\NotificationController;
 use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
@@ -26,3 +27,4 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post( '/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum','role:user')->name('logout');
 
 Route::get('/orders/{id}',[OrderController::class,'show'])->name('orders.show');
+Route::get('/notifications',[NotificationController::class ,'index'])->name('notifications.index');
