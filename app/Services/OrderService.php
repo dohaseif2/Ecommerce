@@ -39,8 +39,10 @@ class OrderService
             'message' => "New order created: Order ID " . $order->id,
             'read' => false,
         ]);
-        broadcast(new OrderCreated($order))->toOthers();
-        
+
+        // broadcast(new OrderCreated($order))->toOthers();
+        event(new  OrderCreated($order));
+
         return $order;
     }
     public function getOrderById($id)

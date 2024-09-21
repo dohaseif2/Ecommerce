@@ -24,11 +24,16 @@
     Pusher.logToConsole = true;
 
     var pusher = new Pusher('b351997304f15043fc32', {
-      cluster: 'eu'
+      cluster: 'eu',
+      forceTLS: true
     });
 
     var channel = pusher.subscribe('admin.notifications');
-    channel.bind('OrderCreated', function(data) {
+    
+    channel.bind('App\\Events\\OrderCreated', function(data) {
+        console.log("test " + data);
+        
       alert(JSON.stringify(data));
+      
     });
   </script>
