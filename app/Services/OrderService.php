@@ -38,6 +38,8 @@ class OrderService
             'user_id' => auth()->id(),
             'message' => "New order created: Order ID " . $order->id,
             'read' => false,
+            'order_id' => $order->id,
+
         ]);
 
         // broadcast(new OrderCreated($order))->toOthers();

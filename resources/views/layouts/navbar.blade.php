@@ -27,7 +27,7 @@
                         <!-- Dynamic Notifications -->
                         @foreach ($notifications as $notification)
                         <li>
-                            <a class="dropdown-item " href="#">
+                            <a class="dropdown-item" href="{{ route('orders.show', ['id' => $notification->order_id]) }}">
                                 <i class="bx me-2"></i>
                                 <span class="align-middle">
                                     <strong>{{ $notification->user->name }}:</strong> {{ $notification->message }}
