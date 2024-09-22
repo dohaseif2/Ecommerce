@@ -30,8 +30,8 @@ Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{id}', [ProductController::class, 'show']);
 
 
-Route::post('/cart', [CartController::class, 'addToCart'])->middleware('auth:sanctum');
-Route::delete('/cart/{cartId}/item/{productId}', [CartController::class, 'removeItem'])->middleware('auth:sanctum');
+Route::post('/cart', [CartController::class, 'addToCart'])->middleware('auth:sanctum','role:user');
+Route::delete('/cart/{cartId}/item/{productId}', [CartController::class, 'removeItem'])->middleware('auth:sanctum','role:user');
 Route::post('/cart/{cartId}/item/{productId}/increase', [CartController::class, 'increment'])->middleware('auth:sanctum', 'role:user');
 Route::post('/cart/{cartId}/item/{productId}/decrease', [CartController::class, 'decrement'])->middleware('auth:sanctum', 'role:user');
 Route::post('/orders', [OrderController::class, 'create'])->middleware('auth:sanctum');
