@@ -100,21 +100,4 @@
     </div>
 </nav>
 <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
-  <script>
-
-    // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
-
-    var pusher = new Pusher('b351997304f15043fc32', {
-      cluster: 'eu',
-      forceTLS: true
-    });
-
-    var channel = pusher.subscribe('admin.notifications');
-    
-    channel.bind('App\\Events\\OrderCreated', function(data) {
-        console.log("test " + data);
-        
-      alert(JSON.stringify(data));
-    });
-  </script>
+<script src="/js/app.js"></script>

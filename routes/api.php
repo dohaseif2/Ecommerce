@@ -26,8 +26,8 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class,'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum','role:user');
 
-Route::get('/products', [ProductController::class, 'index'])->middleware('auth:sanctum','role:user');
-Route::get('/products/{id}', [ProductController::class, 'show'])->middleware('auth:sanctum','role:user');
+Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/{id}', [ProductController::class, 'show']);
 
 
 Route::post('/cart', [CartController::class, 'addToCart'])->middleware('auth:sanctum','role:user');
