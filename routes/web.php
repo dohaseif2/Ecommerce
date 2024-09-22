@@ -20,11 +20,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-})->name('index')->middleware('auth:sanctum','role:user');
-Route::get('/orders', [OrderController::class, 'index'])->middleware('auth:sanctum','role:user')->name('orders.index');
+})->name('index')->middleware('auth:sanctum','role:admin');
+Route::get('/orders', [OrderController::class, 'index'])->middleware('auth:sanctum','role:admin')->name('orders.index');
 Route::get('/login',[AuthController::class,'index'])->name('login.index');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::post( '/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum','role:user')->name('logout');
+Route::post( '/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum','role:admin')->name('logout');
 
-Route::get('/orders/{id}',[OrderController::class,'show'])->name('orders.show');
+Route::get('/orders/{id}',[OrderController::class,'show'])->middleware('auth:sanctum','role:admin')->name('orders.show');
 Route::get('/notifications',[NotificationController::class ,'index'])->name('notifications.index');
