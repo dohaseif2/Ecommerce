@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Dashboard;
+
 use App\Http\Controllers\Controller;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
@@ -36,7 +37,7 @@ class AuthController extends Controller
     {
         return view('auth.login');
     }
-  
+
     public function logout(Request $request)
     {
         $user = Auth::user();

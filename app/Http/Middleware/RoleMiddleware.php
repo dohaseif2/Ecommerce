@@ -19,8 +19,8 @@ class RoleMiddleware
         if ($role === 'admin' && Auth::user()->role !== 'admin') {
             return response()->json(['message' => 'Unauthorized'], 403);
         } elseif ($role === 'user' && Auth::user()->role !== 'user') {
+            return $next($request);
             return response()->json(['message' => 'Unauthorized for users'], 403);
         }
-        return $next($request);
     }
 }

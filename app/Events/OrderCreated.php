@@ -33,12 +33,7 @@ class OrderCreated implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new Channel('admin.notifications'),
+            new Channel('admin-notifications'),
         ];
     }
-
-    // public function broadcastAs()
-    // {
-    //     return 'order.created';
-    // }
 }

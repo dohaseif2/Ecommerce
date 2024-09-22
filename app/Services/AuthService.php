@@ -16,7 +16,7 @@ class AuthService
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'phone' => $data['phone'],
-            'role'=>$data['role']
+            'role' => $data['role']
         ]);
 
         return [
@@ -51,5 +51,4 @@ class AuthService
 
         return false;
     }
-    
 }

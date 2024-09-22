@@ -6,6 +6,9 @@ use App\Events\OrderCreated;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\User;
+use App\Notifications\CreatedOrder;
+use GuzzleHttp\Promise\Create;
 
 class OrderService
 {
@@ -34,15 +37,13 @@ class OrderService
                 'price' => $item->price,
             ]);
         }
-        Notification::create([
-            'user_id' => auth()->id(),
-            'message' => "New order created: Order ID " . $order->id,
-            'read' => false,
-            'order_id' => $order->id,
+        $user_order = User::where('id', '=', $userId)->first();
 
-        ]);
+        $users = User::where('role', '=', 'admin')->get();
+        foreach ($users as $user) {
+            $user->notify(new CreatedOrder($user_order, $order));
+        }
 
-        // broadcast(new OrderCreated($order))->toOthers();
         event(new  OrderCreated($order));
 
         return $order;

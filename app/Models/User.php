@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Notifications\Notification;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable,SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -27,7 +28,7 @@ class User extends Authenticatable
     ];
     public function isAdmin()
     {
-        return $this->role === 'admin'; 
+        return $this->role === 'admin';
     }
     public function carts()
     {
@@ -42,6 +43,7 @@ class User extends Authenticatable
     {
         return $this->belongsTo(User::class);
     }
+
     /**
      * The attributes that should be hidden for serialization.
      *

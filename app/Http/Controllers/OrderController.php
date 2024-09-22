@@ -19,7 +19,7 @@ class OrderController extends Controller
 
     public function create(Request $request)
     {
-        $userId = auth()->id(); 
+        $userId = auth()->id();
         $cartItems = CartItem::where('cart_id', $request->input('cart_id'))->get();
 
         if ($cartItems->isEmpty()) {
@@ -29,6 +29,6 @@ class OrderController extends Controller
         $order = $this->orderService->createOrder($userId, $cartItems);
         CartItem::where('cart_id', $request->input('cart_id'))->delete();
 
-        return response()->json(['message'=>'Order created successfully',  new OrderResource($order) ], 201);
+        return response()->json(['message' => 'Order created successfully',  new OrderResource($order)], 201);
     }
 }

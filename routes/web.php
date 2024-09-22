@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Dashboard\AuthController;
 use App\Http\Controllers\Dashboard\OrderController;
-use App\Http\Controllers\NotificationController;
 use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
@@ -20,11 +19,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-})->name('index')->middleware('auth:sanctum','role:user');
-Route::get('/orders', [OrderController::class, 'index'])->middleware('auth:sanctum','role:user')->name('orders.index');
-Route::get('/login',[AuthController::class,'index'])->name('login.index');
+})->name('index')->middleware('auth:sanctum', 'role:user');
+Route::get('/orders', [OrderController::class, 'index'])->middleware('auth:sanctum', 'role:user')->name('orders.index');
+Route::get('/login', [AuthController::class, 'index'])->name('login.index');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::post( '/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum','role:user')->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum', 'role:user')->name('logout');
 
-Route::get('/orders/{id}',[OrderController::class,'show'])->name('orders.show');
-Route::get('/notifications',[NotificationController::class ,'index'])->name('notifications.index');
+Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
